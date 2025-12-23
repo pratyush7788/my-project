@@ -1,20 +1,8 @@
-name: Test SSH Connection
-
-on: 
-  workflow_dispatch: # This allows you to run the test manually
-
-jobs:
-  test-connection:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Try SSH into Server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            echo "Successfully connected to $(hostname)"
-            whoami
-            ls -al /var/www/
+- name: Try SSH into Server
+  uses: appleboy/ssh-action@master
+  with:
+    host: ${{ secrets.SSH_HOST }}  # Check if this name matches your secret
+    username: ${{ secrets.SSH_USERNAME }}
+    key: ${{ secrets.SSH_KEY }}
+    script: |
+      echo "Connected!"
